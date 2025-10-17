@@ -1,0 +1,12 @@
+<div class="container">
+  <app-header class="non-printable"></app-header>
+  <div class="spacer non-printable"></div>
+  <div class="editor-viewer">
+    <app-editor
+      class="non-printable"
+      (chordLines)="viewChords($event)"
+    ></app-editor>
+    <div class="spacer non-printable"></div>
+    <app-viewer [(parsedLines)]="parsedLines"></app-viewer>
+  </div>
+</div>

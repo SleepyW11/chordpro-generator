@@ -1,0 +1,59 @@
+:host {
+  height: 100% !important;
+  width: 100%;
+
+  ::ng-deep .viewer-host {
+    .line {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      @media print {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      &.chorus {
+        &::before {
+          border-left: 2px solid #888888;
+          width: 5px;
+          margin-right: 5px;
+          content: "";
+          background-color: #bbbbbb;
+        }
+      }
+
+      .word {
+        display: flex;
+        flex-direction: row;
+
+        .chord-syllable {
+          display: flex;
+          flex-direction: column;
+
+          .chord {
+            flex: 1 1 20px;
+            font-weight: bold;
+            color: red;
+            font-family: sans-serif;
+            font-size: 10pt;
+            box-sizing: border-box;
+            padding-top: 0.4em;
+          }
+          .syllable {
+            flex: 1 0 20px;
+            font-size: 14pt;
+          }
+        }
+      }
+    }
+
+    .directive-title {
+      font-size: 22pt;
+      font-family: sans-serif;
+      font-weight: bold;
+      color: #222222;
+      // margin-left: 12px;
+    }
+  }
+}

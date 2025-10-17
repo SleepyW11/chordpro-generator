@@ -1,0 +1,68 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  app-header {
+    height: 50px;
+    flex-shrink: 0;
+  }
+  .editor-viewer {
+    display: flex;
+    flex-grow: 1;
+    box-sizing: border-box;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: auto;
+  }
+}
+
+app-editor {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 200px;
+  min-width: 0;
+  min-height: 0;
+}
+
+app-viewer {
+  box-sizing: border-box;
+  padding: 50px;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 200px;
+  font-family: "Noto Sans Bengali", sans-serif;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+.spacer {
+  min-width: 2px;
+  min-height: 2px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  background-color: #ededed;
+}
+
+@media screen and (max-width: 1200px) {
+  .editor-viewer {
+    flex-direction: column;
+  }
+}
+
+@media print {
+  .non-printable {
+    display: none;
+  }
+
+  app-viewer {
+    overflow: unset;
+  }
+}
