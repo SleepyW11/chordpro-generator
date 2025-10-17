@@ -1,43 +1,40 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  output,
-  ViewChild,
-} from '@angular/core';
-import * as monaco from 'monaco-editor';
+import { Component, ElementRef, output, ViewChild } from '@angular/core';
 import { ChordParser } from '../../utils/chord-parser.util';
 import { Line } from '../../models/line';
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import * as monaco from 'monaco-editor';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.html',
   styleUrl: './editor.scss',
+  imports: [MonacoEditorModule, FormsModule],
 })
-export class Editor implements AfterViewInit {
+export class Editor {
   chordLines = output<Line[]>();
   @ViewChild('editorHost') editorHost!: ElementRef;
   editor?: monaco.editor.IStandaloneCodeEditor;
+  editorOptions = {
+    theme: 'chord-pro-light',
+    language: 'chord-pro',
+    automaticLayout: true,
+    padding: { top: 50, bottom: 50 },
+    scrollBeyondLastLine: false,
+  };
 
   initialValue = '';
 
-  ngAfterViewInit(): void {
-    this.chordLines.emit(ChordParser.parse(this.initialValue));
-
-    let recoveredValue = localStorage.getItem('chordpro-generator:last-document');
-
-    this.editor = monaco.editor.create(this.editorHost.nativeElement, {
-      theme: 'chord-pro-light',
-      language: 'chord-pro',
-      value: recoveredValue ? recoveredValue : this.initialValue,
-      automaticLayout: true,
-      padding: { top: 50, bottom: 50 },
-      scrollBeyondLastLine: false,
-    });
+  onEditorInit(editor: monaco.editor.IStandaloneCodeEditor) {
+    this.editor = editor;
+    this.editor!.onDidChangeModelContent((change: any) => this.refreshView());
+    let recoveredValue = localStorage.getItem(
+      'chordpro-generator:last-document',
+    );
+    editor.setValue(recoveredValue || this.initialValue);
 
     this.refreshView();
-
-    this.editor.onDidChangeModelContent((change: any) => this.refreshView());
+    console.log(editor);
   }
 
   refreshView() {

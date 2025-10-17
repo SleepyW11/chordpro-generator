@@ -62,7 +62,7 @@ app-viewer {
     display: none;
   }
 
-  app-viewer {
-    overflow: unset;
+  * {
+    overflow: visible !important;
   }
 }

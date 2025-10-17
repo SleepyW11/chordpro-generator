@@ -1,1 +1,7 @@
-<div class="editor-host" #editorHost></div>
+<!-- <div class="editor-host" #editorHost></div> -->
+<ngx-monaco-editor
+  [options]="editorOptions"
+  (onInit)="onEditorInit($event)"
+  [(ngModel)]="initialValue"
+  class="editor-host"
+></ngx-monaco-editor>
